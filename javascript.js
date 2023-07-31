@@ -4,28 +4,28 @@ function getRndInteger(min, max) {
 
 function getComputerChoice(number) {
     if (number == 1) {
-        return "Rock";
+        return "rock";
     } else if (number == 2) {
-        return "Paper";
+        return "paper";
     } else if (number == 3) {
-        return "Scissors";
+        return "scissors";
     }
 }
 
 function playRound(playerSelection, computerSelection) {
-    if (playerSelection.toLowerCase() == computerSelection.toLowerCase()) {
+    if (playerSelection.toLowerCase() == computerSelection) {
         console.log("You both threw the same! It's a tie!");
         return 0.5;
     } 
-    if ((playerSelection.toLowerCase() == "rock" && computerSelection.toLowerCase() == "paper") 
-    || (playerSelection.toLowerCase() == "paper" && computerSelection.toLowerCase() == "scissors") 
-    || (playerSelection.toLowerCase() == "scissors" && computerSelection.toLowerCase() == "rock")) {
+    if ((playerSelection.toLowerCase() == "rock" && computerSelection == "paper") 
+    || (playerSelection.toLowerCase() == "paper" && computerSelection == "scissors") 
+    || (playerSelection.toLowerCase() == "scissors" && computerSelection == "rock")) {
         console.log("You lost that round!");
         return 0;
     } 
-    if ((computerSelection.toLowerCase() == "rock" && playerSelection.toLowerCase() == "paper") 
-    || (computerSelection.toLowerCase() == "paper" && playerSelection.toLowerCase() == "scissors") 
-    || (computerSelection.toLowerCase() == "scissors" && playerSelection.toLowerCase() == "rock")) {
+    if ((computerSelection == "rock" && playerSelection.toLowerCase() == "paper") 
+    || (computerSelection == "paper" && playerSelection.toLowerCase() == "scissors") 
+    || (computerSelection == "scissors" && playerSelection.toLowerCase() == "rock")) {
         console.log("You won that round!");
         return 1;
     }
@@ -34,7 +34,11 @@ function playRound(playerSelection, computerSelection) {
 function game() {
     let userScore = 0;
     for (i = 0; i < 5; i++) {
-        const playerSelection = prompt("Enter your choice");
+        let playerSelection = prompt("Enter your choice");
+        while (!(playerSelection.toLowerCase() == "rock" || playerSelection.toLowerCase() == "paper" || playerSelection.toLowerCase() == "scissors")) {
+            console.log("What did you throw? Try again.");
+            playerSelection = prompt("Enter your choice");
+        }
         const computerSelection = getComputerChoice(getRndInteger(1,3));
         userScore += playRound(playerSelection, computerSelection);
     }
